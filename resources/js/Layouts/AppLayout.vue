@@ -15,20 +15,526 @@ defineProps({
 
 const showingNavigationDropdown = ref(false);
 
-const switchToTeam = (team) => {
-    Inertia.put(route('current-team.update'), {
-        team_id: team.id,
-    }, {
-        preserveState: false,
-    });
-};
-
 const logout = () => {
     Inertia.post(route('logout'));
 };
 </script>
 
 <template>
+
+    <div class="wrapper">
+
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+        </ul>
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Messages Dropdown Menu -->
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="Logout.php" class="nav-link">Log Out</a>
+            </li>
+        </ul>
+    </nav>
+
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">BEJ Online</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar os-host os-theme-light os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition os-host-overflow os-host-overflow-y"><div class="os-resize-observer-host observed"><div class="os-resize-observer" style="left: 0px; right: auto;"></div></div><div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;"><div class="os-resize-observer"></div></div><div class="os-content-glue" style="margin: 0px -8px; width: 249px; height: 508px;"></div><div class="os-padding"><div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;"><div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                
+            </div>
+            <div class="info">
+                <a :href="route('profile.show')">
+                                            Profile
+                                        </a>
+            </div>
+        </div>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="far fa-circle nav-icon"></i><p>Vizualizare Generala<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="DosareDeschise.php"><i class="far fa-circle nav-icon"></i><p>Dosare Deschise</p></a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="DosareInchise.php"><i class="far fa-circle nav-icon"></i><p>Dosare Inchise</p></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i><p>Inregistrari Dosare<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link " href="InregDosar.php"><i class="far fa-circle nav-icon"></i><p>LEI</p></a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="InregDosarValuta.php"><i class="far fa-circle nav-icon"></i><p>Valuta</p></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i><p>Operatiuni Dosare<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link " href="ModDosar.php"><i class="far fa-circle nav-icon"></i><p>Modificare Dosare Lei</p></a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="ModDosarValuta.php"><i class="far fa-circle nav-icon"></i><p>Modificare Dosare Valuta</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="Delete.php"><i class="far fa-circle nav-icon"></i><p>Stergere Dosare</p></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i><p>Operatiuni Documente<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link " href="Upload.php"><i class="far fa-circle nav-icon"></i><p>Incarcare Documente</p></a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="DeleteDoc.php"><i class="far fa-circle nav-icon"></i><p>Stergere Documente</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="UploadIncuviintare.php"><i class="far fa-circle nav-icon"></i><p>Incarcare Incuviintare</p></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i><p>Operatiuni ANAF<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link " href="EmitereInterogari.php"><i class="far fa-circle nav-icon"></i><p>Interogare</p></a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="InregAngajatori.php"><i class="far fa-circle nav-icon"></i><p>Inregistrare Manuala Angajatori/Conturi</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="ANAFAngajatori.php"><i class="far fa-circle nav-icon"></i><p>Import Fisier Angajatori</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="ANAFBanci.php"><i class="far fa-circle nav-icon"></i><p>Import Fisier Conturi Bancare</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="PrintRaspAng1.php"><i class="far fa-circle nav-icon"></i><p>Print Raspuns Angajatori</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="PrintRaspConturi1.php"><i class="far fa-circle nav-icon"></i><p>Print Raspuns Conturi</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="DeleteConturiAngajatori.php"><i class="far fa-circle nav-icon"></i><p>Stergere Conturi/Angajatori</p></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="#" class="nav-link ">
+                        <i class="nav-icon far fa-plus-square"></i>
+                        <p>Template<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none; ">
+                        <li class="nav-item">
+                            <a href="PrimulLot.php" class="nav-link ">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Primul Lot</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Solicitari Informatii
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none; ">
+                                <li class="nav-item">
+                                    <a href="AdresaCnpas1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Adresa CNPAS</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="ITM1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Adresa ITM</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="AdresaPrimarie1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Adresa Primarie</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Popriri
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="PoprireSalariu1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Poprire Angajatori Cu Doc. Anexe Fara Incuviintari</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="PoprireSalariuIncunv.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Poprire Angajatori Cu Doc. Anexe + Incuviintari</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="PoprireSalariuSimplu1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Poprire Angajatori Fara Doc. Anexe</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="InstPopAng1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Instiintare Poprire Angajator</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="BanciTemp.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Poprire Conturi Cu Doc. Anexe Fara Incuviintari</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="BanciTempIncunv.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Poprire Conturi Cu Doc. Anexe + Incuviintari</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="BanciTempSimplu1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Poprire Conturi Fara Doc. Anexe</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="InstPopBanca1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Instiintare Poprire Banca</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Sistari
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="SistareBanci1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sistare Banci</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="SistareAngajator1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sistare Angajator</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Dosar
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="Incuviintare1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Cerere Incuviintare</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="IncheiereChelt1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Incheiere Cheltuieli</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="SomatieMob1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Somatie Mobiliara</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="SomatieImo1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Somatie Imobiliara</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="SomatieCambiala1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Somatie Cambiala</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="ElibSume1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Incheiere Eliberare Sume</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Incetare Executare
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="IncheiereExecutare1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Incheiere Executare</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="AnulareExecutare1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Anulare Executare</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="IncuviintareRespinsa1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Incuviintare Respinsa</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="DesfiintareTitlu1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Desfiintare Titlu Executoriu</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="IncheiereIncetareCreditor1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Incetare Cerere Creditor</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="InvsolvDec1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Insolvabilitate Decedat</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="IncetareInsolv1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Insolvabilitate</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Bunuri Mobile
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none; ">
+                                <li class="nav-item">
+                                    <a href="AdresaServRutierSechestru1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Adresa PV Sechestru</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="SechestruAuto1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>PV Sechestru Auto</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Bunuri Imobile
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>...</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Dovada Comunicare
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none; ">
+                                <li class="nav-item">
+                                    <a href="DovadaComunicare1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Dovada Comunicare</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="DovadaComunicareITM1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Dovada Comunicare ITM</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="DovadaComunicarePrimarie1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Dovada Comunicare Primarie</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Plic
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none; ">
+                                <li class="nav-item">
+                                    <a href="Plic1.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Print Plic</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i><p>Bunuri<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link " href="ViewBunuri.php"><i class="far fa-circle nav-icon"></i><p>Vizualizare Bunuri</p></a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="InregBunuri.php"><i class="far fa-circle nav-icon"></i><p>Inregistrare Bunuri Mobile</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="InregBunuriImobile.php"><i class="far fa-circle nav-icon"></i><p>Inregistrare Bunuri Imobile</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="EditareBunuri.php"><i class="far fa-circle nav-icon"></i><p>Modificare Bunuri</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="DeleteBunuri.php"><i class="far fa-circle nav-icon"></i><p>Stergere Bunuri</p></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has- ">
+                    <a href="#" class="nav-link ">
+                        <i class="far fa-circle nav-icon"></i><p>Incasari<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class="nav-link " href="Facturi1.php"><i class="far fa-circle nav-icon"></i><p>Facturi</p></a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="Facturi.php"><i class="far fa-circle nav-icon"></i><p>Facturi Emise</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="Incasari.php"><i class="far fa-circle nav-icon"></i><p>Incasari Lei</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="EditareIncasari.php"><i class="far fa-circle nav-icon"></i><p>Editare Incasari Lei</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="IncasariValuta.php"><i class="far fa-circle nav-icon"></i><p>Incasari Valuta</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="EditareIncasariValuta.php"><i class="far fa-circle nav-icon"></i><p>Editare Incasari Valuta</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="IncarcaIncasari.php"><i class="far fa-circle nav-icon"></i><p>Incarca Incasari LEI CSV</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="Viramente.php"><i class="far fa-circle nav-icon"></i><p>Export Viramente</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="ViramenteValuta.php"><i class="far fa-circle nav-icon"></i><p>Export Viramente Valuta</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="DeleteFacturi.php"><i class="far fa-circle nav-icon"></i><p>Sterge Facturi</p></a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+    </div></div></div><div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable"><div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar os-scrollbar-vertical"><div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="height: 98.835%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar-corner"></div></div>
+</aside>
+
+  <div class="content-wrapper">
+        <!-- Page Heading -->
+        <header v-if="$slots.header">
+                <slot name="header" />
+        </header>
+        <!-- Page Content -->
+        <main>
+            <slot />
+        </main>
+  </div>
+
+    </div>
     <div>
         <Head :title="title" />
 
@@ -209,7 +715,7 @@ const logout = () => {
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                            Dashboard from applayout
                         </JetResponsiveNavLink>
                     </div>
 
@@ -295,17 +801,7 @@ const logout = () => {
                 </div>
             </nav>
 
-            <!-- Page Heading -->
-            <header v-if="$slots.header" class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                <slot />
-            </main>
+           
         </div>
     </div>
 </template>
